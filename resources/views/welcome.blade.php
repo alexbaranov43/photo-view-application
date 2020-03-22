@@ -85,6 +85,23 @@
                 </div>
 
                 <div class="links">
+                                        <?php 
+                                        $array = [];
+                        $url = 'https://picsum.photos/id/389/300/200';
+                        // $regexp = '///';
+                        $my_array  = preg_split("/\//", $url);
+                        // var_dump(parse_url($url)); 
+                        // var_dump(parse_url($url, PHP_URL_SCHEME)); 
+                        // $kat = var_dump(parse_url($url, PHP_URL_PATH));
+                        // $array[] = $kat;
+                        // {!! str_replace("'", "\'", json_encode($sliderImageDataArray)) !!};
+                        // $var = preg_split("/\id/", $kat);
+                        echo 'url is : ' .  $my_array[1] . $my_array[2];
+                        echo 'photo id is : ' . $my_array[4];
+                        echo 'width : ' . $my_array[5];
+                        echo 'height is : ' . $my_array[6];
+                        // echo $array;
+                        ?>
                     <a href="https://laravel.com/docs">Docs</a>
                     <a href="https://laracasts.com">Laracasts</a>
                     <a href="https://laravel-news.com">News</a>

@@ -15,9 +15,9 @@ class AddColumnsToPhotosTable extends Migration
     {
         Schema::table('photos', function (Blueprint $table) {
             //
-            $table->integer('photo_id')->unsigned();
-            $table->integer('height')->unsigned();
-            $table->integer('width')->unsigned();
+            $table->integer('photo_id')->unsigned()->after('image_url');
+            $table->integer('width')->unsigned()->after('photo_id');
+            $table->integer('height')->unsigned()->after('width');
         });
     }
 

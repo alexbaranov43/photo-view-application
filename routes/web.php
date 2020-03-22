@@ -18,3 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/photos', 'PhotoController@index');
+Route::post('/photos/upload', 'PhotoController@store')->name('csv_import_parse');
+Route::get('/photos/csv', 'PhotoController@downloadCsv')->name('csv_download');
