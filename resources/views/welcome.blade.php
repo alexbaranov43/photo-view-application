@@ -86,30 +86,22 @@
 
                 <div class="links">
                                         <?php 
-                                        $array = [];
-                        $url = 'https://picsum.photos/id/389/300/200';
+                                        // $array = [];
+                        // $url = 'https://picsum.photos/id/389/300/200';
                         // $regexp = '///';
-                        $my_array  = preg_split("/\//", $url);
+                        // $my_array  = preg_split("/\//", $url);
                         // var_dump(parse_url($url)); 
                         // var_dump(parse_url($url, PHP_URL_SCHEME)); 
                         // $kat = var_dump(parse_url($url, PHP_URL_PATH));
                         // $array[] = $kat;
                         // {!! str_replace("'", "\'", json_encode($sliderImageDataArray)) !!};
                         // $var = preg_split("/\id/", $kat);
-                        echo 'url is : ' .  $my_array[1] . $my_array[2];
-                        echo 'photo id is : ' . $my_array[4];
-                        echo 'width : ' . $my_array[5];
-                        echo 'height is : ' . $my_array[6];
+                        // echo 'url is : ' .  $my_array[1] . $my_array[2];
+                        // echo 'photo id is : ' . $my_array[4];
+                        // echo 'width : ' . $my_array[5];
+                        // echo 'height is : ' . $my_array[6];
                         // echo $array;
                         ?>
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
                 </div>
             </div>
         </div>

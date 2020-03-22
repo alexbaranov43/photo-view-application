@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Photo;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\DB;
 use Goodby\CSV\Import\Standard\Lexer;
@@ -26,7 +27,23 @@ class PhotoController extends Controller
     public function index()
     {
         //
-        return view('photos.index');
+
+        return response()->json([
+
+            'photos' =>  Photo::select(
+                'photos.id',
+                'photos.image_url',
+                'photos.width',
+                'photos.height',
+                'users.id as user_id',
+                'photos.created_at'
+            )
+                ->join('users', 'users.id', '=', 'photos.user_id')
+                ->where('user_id', auth()->user()->id)
+                ->orderBy('created_at', 'desc')
+                ->get()
+
+        ], 200);
     }
 
     /**
@@ -37,6 +54,7 @@ class PhotoController extends Controller
     public function create()
     {
         //
+        return view('photos.create');
     }
 
     /**
@@ -145,7 +163,7 @@ class PhotoController extends Controller
         $warning = $invalidEntryCount . ' Content Scenario Metrics were invalid.';
 
         redirect('/photos');
-        return view('photos.index', compact('message', 'invalidEntries', 'invalidEntryCount', 'importedRowCount', 'warning', 'errorLines'))->with('invalidEntries', $invalidEntries);
+        return view('photos.create', compact('message', 'invalidEntries', 'invalidEntryCount', 'importedRowCount', 'warning', 'errorLines'))->with('invalidEntries', $invalidEntries);
     }
 
     
