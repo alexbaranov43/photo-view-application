@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Photo Viewer</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -81,27 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                                        <?php 
-                                        // $array = [];
-                        // $url = 'https://picsum.photos/id/389/300/200';
-                        // $regexp = '///';
-                        // $my_array  = preg_split("/\//", $url);
-                        // var_dump(parse_url($url)); 
-                        // var_dump(parse_url($url, PHP_URL_SCHEME)); 
-                        // $kat = var_dump(parse_url($url, PHP_URL_PATH));
-                        // $array[] = $kat;
-                        // {!! str_replace("'", "\'", json_encode($sliderImageDataArray)) !!};
-                        // $var = preg_split("/\id/", $kat);
-                        // echo 'url is : ' .  $my_array[1] . $my_array[2];
-                        // echo 'photo id is : ' . $my_array[4];
-                        // echo 'width : ' . $my_array[5];
-                        // echo 'height is : ' . $my_array[6];
-                        // echo $array;
-                        ?>
+                    Welcome To Photo Viewer. <br> Enter.
                 </div>
             </div>
         </div>

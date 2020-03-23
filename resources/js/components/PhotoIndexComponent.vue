@@ -6,6 +6,7 @@
             <button class="color-photo btn btn-success" @click="colorPhotos()">Color Photos</button>
             <br><br>
           </div>
+          <!-- drop down of dimensions for filter -->
           <div class="row justify-content-center filter-group">
             <select class="dimension-select" name="" id="" @change="setDimensions">
               <option value="">Select Dimensions</option>
@@ -22,15 +23,15 @@
                     <img v-bind:src="photo.image_url" v-bind:width="photo.width" v-bind:height="photo.height" alt="" grayscale="false">
                 </div>
             </div>
-                                            <!-- Pagination Links -->
-                <div class="row" >
-                  <div class="col-sm-12" id="pagination-link-container">
-                    <pagination
-                      :data="this.photos"
-                      v-on:pagination-change-page="getPhotos"
-                    ></pagination>
-                  </div>
-                </div>
+            <!-- Pagination Links -->
+            <div class="row" >
+              <div class="col-sm-12" id="pagination-link-container">
+                <pagination
+                  :data="this.photos"
+                  v-on:pagination-change-page="getPhotos"
+                ></pagination>
+              </div>
+            </div>
         </div>
     </div>
 </template>
@@ -42,18 +43,18 @@
           errors: {},
           photos: {},
           photosInfo: {},
-          height: 100,
-          width: 100
+          height: null,
+          width: null
         }
       },
       mounted() {
-          console.log('Component mounted.')
           $('.color-photo').hide();
       },
       methods: {
         getPageResults(page = 1) {
           this.getPhotos(page)
         },
+        // get call for paginated photo results w/ default page 1
         getPhotos(
           page = 1
         ){
@@ -70,6 +71,7 @@
                   console.log(error)
                 })
           },
+        // call to get photos by specified dimensions
         getPhotosByDimension(width = this.width, height = this.height){
           let url = '/photos/index/' + width + '/' + height
           axios.get(url)
@@ -84,6 +86,7 @@
             })
 
         },
+        // switch case for width and height dimensions to send to get call by dimensions
         setDimensions() {
           let val = $('.dimension-select').val();
           switch (val) {
@@ -117,6 +120,7 @@
                                             
           }
         },
+        // toggle photos grayscale
         grayscalePhotos() {
           $('img').attr('grayscale', true);
           for (let photo of this.photosInfo) {
@@ -125,6 +129,7 @@
           $('.grayscale-photo').hide();
           $('.color-photo').show();
         },
+        // toggle photos back to color
         colorPhotos() {
           $('img').attr('grayscale', false);
           for (let photo of this.photosInfo) {

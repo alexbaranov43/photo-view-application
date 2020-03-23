@@ -6,7 +6,9 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">Welcome {{ auth()->user()->name }}</div>
-
+                <div class="card-header card-header-right">
+                    <a href="/photos/add"><button class="btn btn-primary">Add CSV File</button></a>
+                </div>
                 <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">

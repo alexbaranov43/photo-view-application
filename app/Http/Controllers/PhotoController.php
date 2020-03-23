@@ -30,62 +30,39 @@ class PhotoController extends Controller
     {
           
         $photos = Photo::select(
-                'photos.id',
-                'photos.image_url',
-                'photos.width',
-                'photos.height',
-                'users.id as user_id',
-                'photos.created_at'
-            )
-                ->join('users', 'users.id', '=', 'photos.user_id')
-                ->where('user_id', auth()->user()->id)
-                ->orderBy('created_at', 'desc')
-                ->paginate(10);
-            
-                return new PhotosResourceCollection($photos);
-
-
-        // return response()->json([
-
-        //     'photos' =>  Photo::select(
-        //         'photos.id',
-        //         'photos.image_url',
-        //         'photos.width',
-        //         'photos.height',
-        //         'users.id as user_id',
-        //         'photos.created_at'
-        //     )
-        //         ->join('users', 'users.id', '=', 'photos.user_id')
-        //         ->where('user_id', auth()->user()->id)
-        //         ->orderBy('created_at', 'desc')
-        //         ->paginate(10)
-
-        // ], 200);
+            'photos.id',
+            'photos.image_url',
+            'photos.width',
+            'photos.height',
+            'users.id as user_id',
+            'photos.created_at'
+        )
+            ->join('users', 'users.id', '=', 'photos.user_id')
+            ->where('user_id', auth()->user()->id)
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+        
+            return new PhotosResourceCollection($photos);
     }
 
     public function indexByDimension(Request $request, $width, $height)
     {
-                $photos =  Photo::select(
-                'photos.id',
-                'photos.image_url',
-                'photos.width',
-                'photos.height',
-                'users.id as user_id',
-                'photos.created_at'
-            )
-                ->join('users', 'users.id', '=', 'photos.user_id')
-                ->where('user_id', auth()->user()->id)
-                ->where('width', $width)
-                ->where('height', $height)
-                ->orderBy('created_at', 'desc')
-                ->get();
+        $photos =  Photo::select(
+            'photos.id',
+            'photos.image_url',
+            'photos.width',
+            'photos.height',
+            'users.id as user_id',
+            'photos.created_at'
+        )
+            ->join('users', 'users.id', '=', 'photos.user_id')
+            ->where('user_id', auth()->user()->id)
+            ->where('width', $width)
+            ->where('height', $height)
+            ->orderBy('created_at', 'desc')
+            ->get();
 
-                return new PhotosResourceCollection($photos);
-        // return response()->json([
-
-
-
-        // ], 200);
+        return new PhotosResourceCollection($photos);
     }
 
     /**
@@ -199,12 +176,11 @@ class PhotoController extends Controller
         }
 
 
-        $message = $importedRowCount . ' Content Scenario Metrics were successfully imported!';
+        $message = $importedRowCount . ' Photos were successfully imported!';
         $invalidEntries = $this->invalidEntries;
         $invalidEntryCount = count($this->invalidEntries); // $this->invalidEntryCount;
-        $warning = $invalidEntryCount . ' Content Scenario Metrics were invalid.';
+        $warning = $invalidEntryCount . ' Photos were invalid.';
 
-        redirect('/photos');
         return view('photos.create', compact('message', 'invalidEntries', 'invalidEntryCount', 'importedRowCount', 'warning', 'errorLines'))->with('invalidEntries', $invalidEntries);
     }
 

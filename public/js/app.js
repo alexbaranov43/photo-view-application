@@ -1984,18 +1984,18 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       errors: {},
       photos: {},
       photosInfo: {},
-      height: 100,
-      width: 100
+      height: null,
+      width: null
     };
   },
   mounted: function mounted() {
-    console.log('Component mounted.');
     $('.color-photo').hide();
   },
   methods: {
@@ -2003,6 +2003,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       this.getPhotos(page);
     },
+    // get call for paginated photo results w/ default page 1
     getPhotos: function getPhotos() {
       var _this = this;
 
@@ -2018,6 +2019,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         console.log(error);
       });
     },
+    // call to get photos by specified dimensions
     getPhotosByDimension: function getPhotosByDimension() {
       var _this2 = this;
 
@@ -2033,6 +2035,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         console.log(error);
       });
     },
+    // switch case for width and height dimensions to send to get call by dimensions
     setDimensions: function setDimensions() {
       var val = $('.dimension-select').val();
 
@@ -2071,6 +2074,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           this.getPhotos();
       }
     },
+    // toggle photos grayscale
     grayscalePhotos: function grayscalePhotos() {
       $('img').attr('grayscale', true);
 
@@ -2091,6 +2095,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       $('.grayscale-photo').hide();
       $('.color-photo').show();
     },
+    // toggle photos back to color
     colorPhotos: function colorPhotos() {
       $('img').attr('grayscale', false);
 
