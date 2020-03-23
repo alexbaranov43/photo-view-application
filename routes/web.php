@@ -20,6 +20,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/photos/index', 'PhotoController@index');
+Route::get('/photos/index/gray', 'PhotoController@indexGrayscale');
 Route::get('/photos/index/{width}/{height}', 'PhotoController@indexByDimension')->where('width', '[0-9]+', 'heigth', '[0-9]+');
 Route::get('/photos/add', 'PhotoController@create');
 Route::post('/photos/upload', 'PhotoController@store')->name('csv_import_parse');

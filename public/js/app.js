@@ -1985,6 +1985,24 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1996,12 +2014,16 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     };
   },
   mounted: function mounted() {
-    $('.color-photo').hide();
+    $('.gray-paginator').hide();
+    $('.color').hide();
+    $('.color-all').hide();
+    $('.grayscale-photo').hide();
   },
   methods: {
     getPageResults: function getPageResults() {
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       this.getPhotos(page);
+      this.getGrayPhotos(page);
     },
     // get call for paginated photo results w/ default page 1
     getPhotos: function getPhotos() {
@@ -2011,9 +2033,32 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       var url = '/photos/index';
       url += '?page=' + page;
       axios.get(url).then(function (response) {
+        $('.color-paginator').show();
+        $('.gray-paginator').hide();
         _this.photos = response.data;
         _this.photosInfo = response.data.data;
-        $('.grayscale-photo').show();
+        $('.grayscale-photo').hide();
+        $('.gray-scale-all').show();
+        $('.color-all').hide();
+        $('.color-photo').hide();
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    getGrayPhotos: function getGrayPhotos() {
+      var _this2 = this;
+
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      var url = '/photos/index/gray';
+      url += '?page=' + page;
+      axios.get(url).then(function (response) {
+        $('.color-paginator').hide();
+        $('.gray-paginator').show();
+        _this2.photos = response.data;
+        _this2.photosInfo = response.data.data;
+        $('.color-all').show();
+        $('.gray-scale-all').hide();
+        $('.grayscale-photo').hide();
         $('.color-photo').hide();
       })["catch"](function (error) {
         console.log(error);
@@ -2021,16 +2066,18 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     },
     // call to get photos by specified dimensions
     getPhotosByDimension: function getPhotosByDimension() {
-      var _this2 = this;
+      var _this3 = this;
 
       var width = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.width;
       var height = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.height;
       var url = '/photos/index/' + width + '/' + height;
       axios.get(url).then(function (response) {
-        _this2.photos = response.data;
-        _this2.photosInfo = response.data.data;
+        _this3.photos = response.data;
+        _this3.photosInfo = response.data.data;
         $('.grayscale-photo').show();
         $('.color-photo').hide();
+        $('.gray-scale-all').hide();
+        $('.color-all').hide();
       })["catch"](function (error) {
         console.log(error);
       });
@@ -38144,6 +38191,32 @@ var render = function() {
           _c(
             "button",
             {
+              staticClass: "gray-scale-all btn btn-secondary",
+              on: {
+                click: function($event) {
+                  return _vm.getGrayPhotos()
+                }
+              }
+            },
+            [_vm._v("Grayscale Index")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "color-all btn btn-success",
+              on: {
+                click: function($event) {
+                  return _vm.getPhotos()
+                }
+              }
+            },
+            [_vm._v("Color Index")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
               staticClass: "grayscale-photo btn btn-secondary",
               on: {
                 click: function($event) {
@@ -38173,49 +38246,53 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("div", { staticClass: "row justify-content-center filter-group" }, [
-        _c(
-          "select",
-          {
-            staticClass: "dimension-select",
-            attrs: { name: "", id: "" },
-            on: { change: _vm.setDimensions }
-          },
-          [
-            _c("option", { attrs: { value: "" } }, [
-              _vm._v("Select Dimensions")
-            ]),
-            _vm._v(" "),
-            _c(
-              "option",
-              { attrs: { value: "100x100", "w-val": "100", "h-val": "100" } },
-              [_vm._v("100 x 100")]
-            ),
-            _vm._v(" "),
-            _c(
-              "option",
-              { attrs: { value: "250x250", "w-val": "250", "h-val": "250" } },
-              [_vm._v("250 x 250")]
-            ),
-            _vm._v(" "),
-            _c(
-              "option",
-              { attrs: { value: "300x200", "w-val": "300", "h-val": "200" } },
-              [_vm._v("300 x 200")]
-            ),
-            _vm._v(" "),
-            _c(
-              "option",
-              { attrs: { value: "300x300", "w-val": "300", "h-val": "300" } },
-              [_vm._v("300 x 300")]
-            ),
-            _vm._v(" "),
-            _c(
-              "option",
-              { attrs: { value: "400x200", "w-val": "400", "h-val": "200" } },
-              [_vm._v("400 x 200")]
-            )
-          ]
-        )
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", [
+          _c(
+            "select",
+            {
+              staticClass: "dimension-select",
+              attrs: { name: "", id: "" },
+              on: { change: _vm.setDimensions }
+            },
+            [
+              _c("option", { attrs: { value: "" } }, [
+                _vm._v("Select Dimensions")
+              ]),
+              _vm._v(" "),
+              _c(
+                "option",
+                { attrs: { value: "100x100", "w-val": "100", "h-val": "100" } },
+                [_vm._v("100 x 100")]
+              ),
+              _vm._v(" "),
+              _c(
+                "option",
+                { attrs: { value: "250x250", "w-val": "250", "h-val": "250" } },
+                [_vm._v("250 x 250")]
+              ),
+              _vm._v(" "),
+              _c(
+                "option",
+                { attrs: { value: "300x200", "w-val": "300", "h-val": "200" } },
+                [_vm._v("300 x 200")]
+              ),
+              _vm._v(" "),
+              _c(
+                "option",
+                { attrs: { value: "300x300", "w-val": "300", "h-val": "300" } },
+                [_vm._v("300 x 300")]
+              ),
+              _vm._v(" "),
+              _c(
+                "option",
+                { attrs: { value: "400x200", "w-val": "400", "h-val": "200" } },
+                [_vm._v("400 x 200")]
+              )
+            ]
+          )
+        ])
       ]),
       _vm._v(" "),
       _c(
@@ -38226,7 +38303,7 @@ var render = function() {
             "div",
             {
               key: photo.id,
-              staticClass: "card col-md-5 col-sm-12 justify-content-center"
+              staticClass: "card col-md-5 justify-content-center"
             },
             [
               _c("img", {
@@ -38244,7 +38321,7 @@ var render = function() {
         0
       ),
       _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "row color-paginator" }, [
         _c(
           "div",
           {
@@ -38259,11 +38336,39 @@ var render = function() {
           ],
           1
         )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row gray-paginator" }, [
+        _c(
+          "div",
+          {
+            staticClass: "col-sm-12",
+            attrs: { id: "pagination-link-container" }
+          },
+          [
+            _c("pagination", {
+              attrs: { data: this.photos },
+              on: { "pagination-change-page": _vm.getGrayPhotos }
+            })
+          ],
+          1
+        )
       ])
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("label", { staticClass: "col-sm-12", attrs: { for: "" } }, [
+        _vm._v("Filter By Dimension: ")
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 

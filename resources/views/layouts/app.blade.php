@@ -47,7 +47,8 @@
     .card-header {
         text-align: center;
         background: #19406e;
-        color: white
+        color: white;
+        margin-bottom: 15px
     }
     .card-header-right {
         background: whitesmoke !important

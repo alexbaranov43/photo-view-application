@@ -65,6 +65,29 @@ class PhotoController extends Controller
         return new PhotosResourceCollection($photos);
     }
 
+    public function indexGrayscale()
+    {
+        $photos = Photo::select(
+            'photos.id',
+            'photos.image_url',
+            'photos.width',
+            'photos.height',
+            'users.id as user_id',
+            'photos.created_at'
+        )
+            ->join('users', 'users.id', '=', 'photos.user_id')
+            ->where('user_id', auth()->user()->id)
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
+        foreach ($photos as $photo) {
+            $photo->image_url = $photo->image_url . '?grayscale';
+        }
+        // $photos->save();
+
+        return new PhotosResourceCollection($photos);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
