@@ -32,7 +32,9 @@
 
 * Click the Photo Viewer logo in the top left corner to see all of the photos.
 
-* LEGEND GUIDE: Grayscale Index shows all of photos in grayscale and paginated. Color Index shows all of photos in color and paginated.
+* BUTTON GUIDE: 
+
+* Grayscale Index shows all of photos in grayscale and paginated. Color Index shows all of photos in color and paginated.
 
 * Grayscale Photos shows all of the filtered photos by dimension in gray scale. Color Photos shows all of the filtered photos in color.
 
