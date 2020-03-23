@@ -9,7 +9,9 @@ use Goodby\CSV\Import\Standard\Interpreter;
 use Goodby\CSV\Import\Standard\LexerConfig;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Support\Facades\Request as FacadesRequest;
+use App\Http\Resources\PhotosResource;
+use App\Http\Resources\PhotosResourceCollection;
 
 use Illuminate\Http\Request;
 
@@ -26,11 +28,8 @@ class PhotoController extends Controller
      */
     public function index()
     {
-        //
-
-        return response()->json([
-
-            'photos' =>  Photo::select(
+          
+        $photos = Photo::select(
                 'photos.id',
                 'photos.image_url',
                 'photos.width',
@@ -41,9 +40,52 @@ class PhotoController extends Controller
                 ->join('users', 'users.id', '=', 'photos.user_id')
                 ->where('user_id', auth()->user()->id)
                 ->orderBy('created_at', 'desc')
-                ->get()
+                ->paginate(10);
+            
+                return new PhotosResourceCollection($photos);
 
-        ], 200);
+
+        // return response()->json([
+
+        //     'photos' =>  Photo::select(
+        //         'photos.id',
+        //         'photos.image_url',
+        //         'photos.width',
+        //         'photos.height',
+        //         'users.id as user_id',
+        //         'photos.created_at'
+        //     )
+        //         ->join('users', 'users.id', '=', 'photos.user_id')
+        //         ->where('user_id', auth()->user()->id)
+        //         ->orderBy('created_at', 'desc')
+        //         ->paginate(10)
+
+        // ], 200);
+    }
+
+    public function indexByDimension(Request $request, $width, $height)
+    {
+                $photos =  Photo::select(
+                'photos.id',
+                'photos.image_url',
+                'photos.width',
+                'photos.height',
+                'users.id as user_id',
+                'photos.created_at'
+            )
+                ->join('users', 'users.id', '=', 'photos.user_id')
+                ->where('user_id', auth()->user()->id)
+                ->where('width', $width)
+                ->where('height', $height)
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+                return new PhotosResourceCollection($photos);
+        // return response()->json([
+
+
+
+        // ], 200);
     }
 
     /**

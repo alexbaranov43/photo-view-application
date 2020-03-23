@@ -20,6 +20,9 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <style>
+    .button-group, .filter-group {
+        padding-bottom: 15px;
+    }
     img {
         margin: auto;
     }
