@@ -28,7 +28,10 @@ class PhotoController extends Controller
      */
     public function index()
     {
-          
+        if (!is_numeric(auth()->user()->id)) {
+            return redirect('/');
+        }
+
         $photos = Photo::select(
             'photos.id',
             'photos.image_url',
@@ -47,6 +50,10 @@ class PhotoController extends Controller
 
     public function indexByDimension(Request $request, $width, $height)
     {
+        if (!is_numeric(auth()->user()->id)) {
+            return redirect('/');
+        }
+
         $photos =  Photo::select(
             'photos.id',
             'photos.image_url',
@@ -67,6 +74,10 @@ class PhotoController extends Controller
 
     public function indexGrayscale()
     {
+        if (!is_numeric(auth()->user()->id)) {
+            abort('403');
+        }
+
         $photos = Photo::select(
             'photos.id',
             'photos.image_url',
@@ -96,6 +107,12 @@ class PhotoController extends Controller
     public function create()
     {
         //
+        if (!auth()->user()) {
+            return redirect('/');
+        }
+        if (!is_numeric(auth()->user()->id)) {
+            return redirect('/');
+        }
         return view('photos.create');
     }
 
@@ -107,8 +124,15 @@ class PhotoController extends Controller
      */
     public function store(Request $request)
     {
+        if (!auth()->user()) {
+            return redirect('/');
+        }
+        if (!is_numeric(auth()->user()->id)) {
+            return redirect('/');
+        }
         // Validate POST values
         // Check that POSTed file exists
+        
         $rules = [
             'csv_file' => 'required|file'
         ];
